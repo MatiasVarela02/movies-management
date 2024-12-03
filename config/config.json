@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "admin",
+    "port": 5433,
+    "database": "movies-management",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "admin",
+    "port": 5433,
+    "database": "movies-management",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "admin",
+    "port": 5433,
+    "database": "movies-management",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
