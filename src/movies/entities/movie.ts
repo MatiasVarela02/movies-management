@@ -13,7 +13,7 @@ export class Movie extends Model<Movie> {
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   description: string;
 

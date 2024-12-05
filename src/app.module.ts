@@ -9,6 +9,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { User } from './users/entities/user';
 import { Movie } from './movies/entities/movie';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { Movie } from './movies/entities/movie';
       database: process.env.DATABASE_NAME ?? 'movies-management',
       models: [User, Movie],
     }),
+    ScheduleModule.forRoot(),
     AuthModule,
     UsersModule,
     MoviesModule,
