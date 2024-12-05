@@ -18,14 +18,11 @@ import { Movie } from './movies/entities/movie';
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: 'localhost',
-      port: 5433,
-      username: 'postgres',
-      password: 'admin',
-      database: 'movies-management',
-      models: [
-        User,
-        Movie
-      ],
+      port: parseInt(process.env.DATABASE_PORT) ?? 5433,
+      username: process.env.DATABASE_USERNAME ?? 'postgres',
+      password: process.env.DATABASE_PASSWORD ?? 'admin',
+      database: process.env.DATABASE_NAME ?? 'movies-management',
+      models: [User, Movie],
     }),
     AuthModule,
     UsersModule,

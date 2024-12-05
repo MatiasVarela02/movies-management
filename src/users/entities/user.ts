@@ -1,4 +1,4 @@
-import {  Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 export enum UserRoleEnum {
   ADMIN = 'admin',
@@ -9,7 +9,7 @@ export enum UserRoleEnum {
   tableName: 'Users',
 })
 export class User extends Model<User> {
-  @Column({ type: DataType.INTEGER,primaryKey: true,autoIncrement: true })
+  @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
   id: number;
 
   @Column({
@@ -29,7 +29,7 @@ export class User extends Model<User> {
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    defaultValue: UserRoleEnum.REGULAR
+    defaultValue: UserRoleEnum.REGULAR,
   })
   role: UserRoleEnum;
 }

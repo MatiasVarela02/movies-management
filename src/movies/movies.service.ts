@@ -2,26 +2,35 @@ import { Injectable } from '@nestjs/common';
 import { Movie } from './entities/movie';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
+import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class MoviesService {
-  findAll(): Movie[] {
-    return null;
+  constructor(@InjectModel(Movie) private readonly movieModel: typeof Movie) {}
+
+  findAll(): Promise<Movie[]> {
+    return this.movieModel.findAll();
   }
 
-  findById(id: number): Movie {
-    return null;
+  async findById(id: number): Promise<Movie> {
+    const movie = await this.movieModel.findByPk(id);
+    if (!movie) throw new Error('Movie not found');
+    return movie;
   }
 
-  create(createMovieDto: CreateMovieDto): Movie {
-    return null;
+  create(createMovieDto: CreateMovieDto): Promise<Movie> {
+    return this.movieModel.create(createMovieDto);
   }
 
-  update(id:number,updateMovieDto: UpdateMovieDto): Movie {
-    return null;
+  async update(id: number, updateMovieDto: UpdateMovieDto): Promise<void> {
+    const movie = await this.movieModel.findByPk(id);
+    if (!movie) throw new Error('Movie not found');
+    await this.movieModel.update(updateMovieDto, { where: { id } });
   }
 
-  delete(id:number) {
-    return null;
+  async delete(id: number): Promise<void> {
+    const movie = await this.movieModel.findByPk(id);
+    if (!movie) throw new Error('Movie not found');
+    await this.movieModel.destroy({ where: { id } });
   }
 }

@@ -1,4 +1,11 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, UnauthorizedException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
@@ -13,10 +20,11 @@ export class AuthController {
   @Post('signup')
   async signUp(@Body() createUserDto: any) {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    return this.usersService.create({
+    await this.usersService.create({
       ...createUserDto,
       password: hashedPassword,
     });
+    return { message: 'User registered successfully' };
   }
 
   @HttpCode(HttpStatus.OK)
