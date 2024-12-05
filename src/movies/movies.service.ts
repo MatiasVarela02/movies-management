@@ -9,8 +9,8 @@ import { firstValueFrom } from 'rxjs';
 @Injectable()
 export class MoviesService {
   constructor(
-    @InjectModel(Movie) private readonly movieModel: typeof Movie,
-    private readonly httpService: HttpService,
+    @InjectModel(Movie) readonly movieModel: typeof Movie,
+    readonly httpService: HttpService,
   ) {}
 
   async synchronizeStarWarsMovies() {
@@ -24,14 +24,18 @@ export class MoviesService {
       releaseDate: movie.release_date,
     }));
 
+    const moviesToCreate = [];
+
     for (const movie of movies) {
       const existingMovie = await this.movieModel.findOne({
         where: { title: movie.title },
       });
       if (!existingMovie) {
-        await this.movieModel.create(movie);
+        moviesToCreate.push(movie);
       }
     }
+
+    await this.movieModel.bulkCreate(moviesToCreate);
   }
 
   findAll(): Promise<Movie[]> {
