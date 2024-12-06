@@ -19,7 +19,9 @@ export class AuthService {
     return null;
   }
 
-  async login(payload: any) {
+  async login(payload: any): Promise<{
+    access_token: string;
+  }> {
     const user = payload.dataValues;
     const userData = { userName: user.userName, sub: user.id, role: user.role };
     return {
